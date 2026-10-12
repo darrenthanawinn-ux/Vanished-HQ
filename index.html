@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VANISHED — League HQ</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="wrap">
+  <canvas id="game" width="960" height="600"></canvas>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden">
+    <div class="hud-tl">
+      <div class="hpbar"><span>HP</span><div class="track"><div id="hpFill"></div></div></div>
+      <div class="abil">
+        <div class="ab" id="abDash"><b>SHIFT</b>Dash<i></i></div>
+        <div class="ab" id="abScan"><b>Q</b>Scan<i></i></div>
+        <div class="ab" id="abAtk"><b>F / CLICK</b>Blast<i></i></div>
+      </div>
+    </div>
+    <div class="hud-tr">
+      <div id="clueCount">CLUES 0 / 9</div>
+      <div class="cards">
+        <span id="cBlue" class="card blue">BLUE</span>
+        <span id="cRed" class="card red">RED</span>
+        <span id="cGreen" class="card green">GREEN</span>
+      </div>
+      <div id="roomName"></div>
+    </div>
+    <div id="objective"></div>
+    <div id="prompt" class="hidden"></div>
+    <div id="boss" class="hidden">
+      <div class="bn">THE CURATOR</div>
+      <div class="bt"><div id="bossFill"></div></div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+  <div id="vignette"></div>
+
+  <!-- Dialog -->
+  <div id="dialog" class="hidden">
+    <div id="dTitle"></div>
+    <div id="dText"></div>
+    <div class="dHint">[E] / [SPACE] continue</div>
+  </div>
+
+  <!-- Main menu -->
+  <div id="mainMenu" class="screen">
+    <h1 class="logo" data-t="VANISHED">VANISHED</h1>
+    <p class="sub">A League HQ Mystery</p>
+    <button class="btn" data-action="start">Start Game</button>
+    <button class="btn" data-action="settings">Settings</button>
+    <button class="btn" data-action="controls">Controls</button>
+    <p class="foot">Best played with headphones</p>
+  </div>
+
+  <!-- Pause menu -->
+  <div id="pauseMenu" class="screen hidden">
+    <h2>PAUSED</h2>
+    <button class="btn" data-action="resume">Resume</button>
+    <button class="btn" data-action="journal">Case Journal</button>
+    <button class="btn" data-action="settings">Settings</button>
+    <button class="btn" data-action="controls">Controls</button>
+    <button class="btn ghost" data-action="quit">Quit to Menu</button>
+  </div>
+
+  <!-- Settings -->
+  <div id="settingsMenu" class="screen hidden">
+    <h2>SETTINGS</h2>
+    <div class="panel">
+      <label class="row"><span>Master Volume</span><input type="range" id="sMaster" min="0" max="100" value="80"><output>80</output></label>
+      <label class="row"><span>Music (BGM)</span><input type="range" id="sBgm" min="0" max="100" value="55"><output>55</output></label>
+      <label class="row"><span>Sound FX</span><input type="range" id="sSfx" min="0" max="100" value="80"><output>80</output></label>
+      <label class="row"><span>Mute All</span><input type="checkbox" id="tMute"></label>
+      <label class="row"><span>Screen Shake</span><input type="checkbox" id="tShake" checked></label>
+    </div>
+    <button class="btn" data-action="back">Back</button>
+  </div>
+
+  <!-- Controls -->
+  <div id="controlsMenu" class="screen hidden">
+    <h2>CONTROLS</h2>
+    <div class="panel keys">
+      <div><kbd>W A S D</kbd><kbd>Arrows</kbd><span>Move</span></div>
+      <div><kbd>Shift</kbd><span>Speed dash (brief invulnerability)</span></div>
+      <div><kbd>Q</kbd><span>Energy scan pulse: reveals hidden evidence, wipes projectiles</span></div>
+      <div><kbd>E</kbd><kbd>Space</kbd><span>Examine terminals, gadgets, clues, doors</span></div>
+      <div><kbd>F</kbd><kbd>J</kbd><kbd>Click</kbd><span>Energy blast (click aims at cursor)</span></div>
+      <div><kbd>Tab</kbd><span>Case journal</span></div>
+      <div><kbd>Esc</kbd><kbd>P</kbd><span>Pause</span></div>
+    </div>
+    <button class="btn" data-action="back">Back</button>
+  </div>
+
+  <!-- Journal -->
+  <div id="journalMenu" class="screen hidden">
+    <h2>CASE JOURNAL</h2>
+    <div class="panel journal" id="journalList"></div>
+    <button class="btn" data-action="back">Back</button>
+  </div>
+
+  <!-- Defeat -->
+  <div id="defeatMenu" class="screen hidden">
+    <h2 class="bad">DEFEATED</h2>
+    <p class="sub">The Prism drinks your light...</p>
+    <button class="btn" data-action="retry">Retry Fight</button>
+    <button class="btn ghost" data-action="menu">Main Menu</button>
+  </div>
+
+  <!-- Victory -->
+  <div id="victoryMenu" class="screen hidden">
+    <h2 class="good">CASE CLOSED</h2>
+    <p class="sub">The League is free.</p>
+    <p id="stats" class="stats"></p>
+    <button class="btn" data-action="again">Play Again</button>
+    <button class="btn ghost" data-action="menu">Main Menu</button>
+  </div>
+</div>
+
+<script src="audio.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
